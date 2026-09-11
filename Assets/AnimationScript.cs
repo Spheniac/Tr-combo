@@ -13,12 +13,6 @@ public class AnimationScript : MonoBehaviour
     private bool slash3created;
 
     [SerializeField] private Animator animator;
-    [SerializeField] private int combo;
-    [SerializeField] private float combo_delay;
-    [SerializeField] private float combo_resettime;
-    [SerializeField] private float combo_time;
-    [SerializeField] private bool isCombo;
-    [SerializeField] private int actualCombo;
     [SerializeField] private string currentAnimation;
     [SerializeField] private Rigidbody rb;
 
@@ -26,42 +20,69 @@ public class AnimationScript : MonoBehaviour
     [SerializeField] private float slashforce2 = 10f;
     [SerializeField] private float slashforce3 = 10f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int combo;
+    [SerializeField] private float combo_time;
+    [SerializeField] private float combo_timereset = 1f;
+    [SerializeField] private bool isCombo;
+    [SerializeField] private bool canCombo = true;
+    [SerializeField] private float comboWindowStart = 0.6f; // % de combo_timereset donde se abre la ventana
+    private string[] comboAnims = { "atk_sword", "atk_sword2", "atk_sword3" };
+    private bool bufferedInput = false;
 
-    // Update is called once per frame
     void Update()
     {
+        /// ESPADA
+        if (isCombo)
+        {
+            combo_time += Time.deltaTime;
+
+            // Ventana de combo basada en tu propio timer, ya no depende del nombre del state del Animator
+            if (bufferedInput && combo_time >= combo_timereset * comboWindowStart)
+            {
+                combo++;
+                bufferedInput = false;
+                animator.Play(comboAnims[combo - 1]);
+                combo_time = 0;
+            }
+
+            if (combo_time >= combo_timereset)
+            {
+                combo = 0;
+                combo_time = 0;
+                isCombo = false;
+                canCombo = true;
+                bufferedInput = false;
+            }
+
+            if (combo > 3)
+            {
+                combo = 3;
+                canCombo = false;
+                combo_timereset = 0.5f;
+            }
+        }
+
         currentAnimation = animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
-
-        if (combo_resettime > 0) { combo_resettime -= 1 * Time.deltaTime; }
-        else { isCombo = false; combo = 0; actualCombo = 0; }
-
-        if (combo_delay > 0) { combo_delay -= 1 * Time.deltaTime; }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            combo++;
-            combo_resettime = 40f * Time.deltaTime;
-            if (combo >= 3) { combo = 3; }
-        }
-
-        if ( combo > 0)
-        {
-            isCombo = true;
-            combo_delay = 3f * Time.deltaTime;
-            actualCombo += 1;
-            animator.SetTrigger("Combo" + actualCombo.ToString());
-            combo -= 1;
+            if (combo == 0)
+            {
+                isCombo = true;
+                combo = 1;
+                animator.Play(comboAnims[0]);
+                combo_time = 0;
+            }
+            else if (canCombo && combo < 3)
+            {
+                bufferedInput = true;
+            }
         }
 
         if (slash1created && currentAnimation != "atk_sword") { slash1created = false; }
         if (!slash1created && currentAnimation == "atk_sword")
         {
-            GameObject _slashvfx=Instantiate(SlashSmear1, SlashSpot);
+            GameObject _slashvfx = Instantiate(SlashSmear1, SlashSpot);
             rb.AddForce(Vector3.forward * slashforce1, ForceMode.Impulse);
             Destroy(_slashvfx, 1f);
             slash1created = true;
@@ -76,7 +97,7 @@ public class AnimationScript : MonoBehaviour
             slash2created = true;
         }
 
-        if (slash3created && currentAnimation != "atk_sword3") { slash3created = false; combo_resettime = 0f;  }
+        if (slash3created && currentAnimation != "atk_sword3") { slash3created = false; }
         if (!slash3created && currentAnimation == "atk_sword3")
         {
             GameObject _slashvfx3 = Instantiate(SlashSmear3, SlashSpot);

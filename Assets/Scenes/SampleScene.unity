@@ -1420,17 +1420,17 @@ MonoBehaviour:
   SlashSmear3: {fileID: 3461751023705326554, guid: 83100af1333eaa04eae64f15403b6540, type: 3}
   SlashSpot: {fileID: 907125520}
   animator: {fileID: 1503061747}
-  combo: 0
-  combo_delay: 0
-  combo_resettime: 0
-  combo_time: 0
-  isCombo: 0
-  actualCombo: 0
   currentAnimation: 
   rb: {fileID: 1246999537}
-  slashforce1: -10
-  slashforce2: -10
-  slashforce3: -10
+  slashforce1: -15
+  slashforce2: -15
+  slashforce3: -15
+  combo: 0
+  combo_time: 0
+  combo_timereset: 1
+  isCombo: 0
+  canCombo: 1
+  comboWindowStart: 0.6
 --- !u!95 &1503061747 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9258460508af67745b9a88fc4f77d95e, type: 3}
@@ -1542,8 +1542,8 @@ Transform:
   m_GameObject: {fileID: 1769092063}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04481125, y: -0.107319824, z: 3.9329739}
-  m_LocalScale: {x: 41.0006, y: 1, z: 45}
+  m_LocalPosition: {x: 0.04481125, y: -0.1073, z: -190.9543}
+  m_LocalScale: {x: 41.0006, y: 1, z: 434.77524}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
