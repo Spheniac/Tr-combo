@@ -58,7 +58,7 @@ public class AnimationScript : MonoBehaviour
             {
                 combo = 3;
                 canCombo = false;
-                combo_timereset = 0.5f;
+                combo_timereset = 0.2f;
             }
         }
 

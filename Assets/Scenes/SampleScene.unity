@@ -1422,15 +1422,15 @@ MonoBehaviour:
   animator: {fileID: 1503061747}
   currentAnimation: 
   rb: {fileID: 1246999537}
-  slashforce1: -15
-  slashforce2: -15
+  slashforce1: -5
+  slashforce2: -10
   slashforce3: -15
   combo: 0
   combo_time: 0
-  combo_timereset: 1
+  combo_timereset: 0.5
   isCombo: 0
   canCombo: 1
-  comboWindowStart: 0.1
+  comboWindowStart: 0.2
 --- !u!95 &1503061747 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9258460508af67745b9a88fc4f77d95e, type: 3}
@@ -1501,7 +1501,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 11e21c2ace981ff448c8b76b61d930e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
