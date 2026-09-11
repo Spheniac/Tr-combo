@@ -1430,7 +1430,7 @@ MonoBehaviour:
   combo_timereset: 1
   isCombo: 0
   canCombo: 1
-  comboWindowStart: 0.6
+  comboWindowStart: 0.1
 --- !u!95 &1503061747 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9258460508af67745b9a88fc4f77d95e, type: 3}
